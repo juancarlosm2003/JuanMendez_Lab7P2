@@ -30,7 +30,7 @@ public class Canciones {
         this.titulo = titulo;
     }
 
-    public int getDuracion() {
+    public float getDuracion() {
         return duracion;
     }
 
