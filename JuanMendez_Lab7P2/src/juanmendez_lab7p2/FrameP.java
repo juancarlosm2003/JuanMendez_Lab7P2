@@ -70,7 +70,7 @@ public class FrameP extends javax.swing.JFrame {
         jLabel5.setText("Tipo de usuario: ");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 480, -1, -1));
 
-        cb_usuarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cliente", "Artista", " " }));
+        cb_usuarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cliente", "Artista" }));
         getContentPane().add(cb_usuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 470, 160, 30));
 
         jLabel6.setFont(new java.awt.Font("Rockwell", 1, 14)); // NOI18N

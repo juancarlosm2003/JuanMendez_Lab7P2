@@ -222,7 +222,6 @@ public class FrameArtistas extends javax.swing.JFrame {
         
         String titulo = (String)tabla1.getValueAt(tabla1.getSelectedRow(), 0);
         
-        String fecha = (String)tabla1.getValueAt(tabla1.getSelectedRow(), 1);
         
         int indice = -1;
         for (int i = 0; i < root.getChildCount(); i++)
@@ -232,13 +231,10 @@ public class FrameArtistas extends javax.swing.JFrame {
             }
         
         if(indice > -1){
-            //Agregarlo a ese nodo
             DefaultMutableTreeNode tipoNodo = (DefaultMutableTreeNode)root.getChildAt(indice);
-            tipoNodo.add(new DefaultMutableTreeNode(fecha));
         }else{
             //Crear ese nodo
             DefaultMutableTreeNode tipoNodo = new DefaultMutableTreeNode(titulo);
-            tipoNodo.add(new DefaultMutableTreeNode(fecha));
             root.add(tipoNodo);
         }
         modelo.reload();
