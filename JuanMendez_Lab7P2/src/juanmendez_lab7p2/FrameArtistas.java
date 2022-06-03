@@ -83,26 +83,6 @@ public class FrameArtistas extends javax.swing.JFrame {
 
         jTree1.setBackground(new java.awt.Color(51, 51, 51));
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Lanzamiento");
-        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Single");
-        javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("blue");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("violet");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("red");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("yellow");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Albumes");
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("basketball");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("soccer");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("football");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("hockey");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
         jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         jScrollPane1.setViewportView(jTree1);
 
@@ -111,7 +91,7 @@ public class FrameArtistas extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Rockwell", 1, 48)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Gestion de Artistas");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, 480, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, 480, -1));
 
         jLabel3.setFont(new java.awt.Font("Rockwell", 3, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -128,7 +108,7 @@ public class FrameArtistas extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Fecha de publicacion");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, -1, -1));
-        getContentPane().add(txt_publicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, 180, 30));
+        getContentPane().add(txt_publicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, 180, -1));
 
         jLabel6.setFont(new java.awt.Font("Rockwell", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -237,8 +217,32 @@ public class FrameArtistas extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel modelo = (DefaultTableModel) tabla1.getModel();
+        DefaultTreeModel modelo = (DefaultTreeModel)tabla1.getModel();
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode)modelo.getRoot();
         
+        String titulo = (String)tabla1.getValueAt(tabla1.getSelectedRow(), 0);
+        
+        String fecha = (String)tabla1.getValueAt(tabla1.getSelectedRow(), 1);
+        
+        int indice = -1;
+        for (int i = 0; i < root.getChildCount(); i++)
+            if(root.getChildAt(i).toString().equals(titulo)){
+                indice = i;
+                break;
+            }
+        
+        if(indice > -1){
+            //Agregarlo a ese nodo
+            DefaultMutableTreeNode tipoNodo = (DefaultMutableTreeNode)root.getChildAt(indice);
+            tipoNodo.add(new DefaultMutableTreeNode(fecha));
+        }else{
+            //Crear ese nodo
+            DefaultMutableTreeNode tipoNodo = new DefaultMutableTreeNode(titulo);
+            tipoNodo.add(new DefaultMutableTreeNode(fecha));
+            root.add(tipoNodo);
+        }
+        modelo.reload();
+    
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

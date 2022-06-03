@@ -5,6 +5,10 @@
  */
 package juanmendez_lab7p2;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.util.ArrayList;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,7 +16,7 @@ import javax.swing.JOptionPane;
  * @author Juan Carlos Mendez
  */
 public class FrameP extends javax.swing.JFrame {
-
+    ArrayList<Usuarios> usuarios = new ArrayList();
     /**
      * Creates new form FrameP
      */
@@ -40,6 +44,7 @@ public class FrameP extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txt_edad = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -80,7 +85,15 @@ public class FrameP extends javax.swing.JFrame {
                 jButton1MouseClicked(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 620, 130, 50));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 620, 130, 50));
+
+        jButton2.setText("Guardar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 620, 140, 50));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -98,18 +111,46 @@ public class FrameP extends javax.swing.JFrame {
                 FrameCliente a = new FrameCliente();
                 a.setVisible(true);
                 this.setVisible(false);
-            }else{
-                if (tipouser.equalsIgnoreCase("Artista")){
+            } else {
+                if (tipouser.equalsIgnoreCase("Artista")) {
                     FrameArtistas b = new FrameArtistas();
                     b.setVisible(true);
                     this.setVisible(false);
                 }
             }
-        }catch(Exception e){
+            usuarios.add(new Usuarios(edad, username, contraseña));
+
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this,
-                 "Ha ocurrido un error inesperado, vuelva a intentarlo mas tarde");
+                    "Ha ocurrido un error inesperado, vuelva a intentarlo mas tarde");
         }
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        try {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            int resultado = chooser.showSaveDialog(this);
+
+            if (resultado == chooser.APPROVE_OPTION) {
+                String file = (String) JOptionPane.showInputDialog("Nombre del archivo");
+
+                BufferedWriter bw = new BufferedWriter(new FileWriter(chooser.getSelectedFile() + "/" + file + ".txt"));
+                for (Usuarios usuarios: usuarios) {
+                    bw.write(usuarios.getUsuario() + "," + usuarios.getContraseña() + "," + usuarios.getEdad() + "," + "\n");
+                }
+                bw.close();
+                JOptionPane.showMessageDialog(this, "Guardado exitosamente");
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Cancelado");
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,6 +190,7 @@ public class FrameP extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cb_usuarios;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
