@@ -15,15 +15,13 @@ public class List_repro {
 
     String nombre;
     int likes;
-    ArrayList<Canciones> cancion;
 
     public List_repro() {
     }
 
-    public List_repro(String nombre, int likes, ArrayList<Canciones> cancion) {
+    public List_repro(String nombre, int likes) {
         this.nombre = nombre;
         this.likes = likes;
-        this.cancion = cancion;
     }
 
     public String getNombre() {
@@ -42,17 +40,10 @@ public class List_repro {
         this.likes = likes;
     }
 
-    public ArrayList<Canciones> getCancion() {
-        return cancion;
-    }
-
-    public void setCancion(ArrayList<Canciones> cancion) {
-        this.cancion = cancion;
-    }
 
     @Override
     public String toString() {
-        return "List_repro{" + "nombre=" + nombre + ", likes=" + likes + ", cancion=" + cancion + '}';
+        return "List_repro{" + "nombre=" + nombre + ", likes=" + likes + ", cancion=" + '}';
     }
 
 }
